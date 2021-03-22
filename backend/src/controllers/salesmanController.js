@@ -28,7 +28,16 @@ module.exports = {
     },
 
     async index(request, response) {
-        const list_saleman = await connection('salesman').select('*')
+        const { page = 1 } = request.query
+
+        const [count] = await connection('salesman').count()
+
+        const list_saleman = await connection('salesman')
+        .limit(5)
+        .offset((page - 1) * 5)
+        .select('*')
+
+        response.header('X-Total-Count', count['count(*)'])
 
         return response.json(list_saleman)
     },
