@@ -16,6 +16,6 @@ module.exports = {
             return response.status(400).json({ error: 'Invalid password.'})
         }
 
-        return response.json(admin.name)
+        return response.json(admin.id)
     }
 }

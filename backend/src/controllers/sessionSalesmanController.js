@@ -11,7 +11,7 @@ module.exports = {
         .first()
 
         if(!salesman) {
-            return response.status(400).json({error: "No salesman faund with this email"})
+            return response.status(400).json({error: "No salesman found with this email"})
         }
         if(salesman.password != password) {
             return response.status(400).json({error: "Invalid password"})
