@@ -20,6 +20,7 @@ routes.get('/profile', profileController.index)
 
 routes.get('/salesman', salesmanController.index)
 routes.post('/salesman', salesmanController.create)
+routes.put('/salesman/:id', salesmanController.update)
 routes.delete('/salesman/:id', salesmanController.delete)
 
 module.exports = routes

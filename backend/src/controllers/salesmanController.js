@@ -3,7 +3,7 @@ const crypto = require('crypto')
 
 module.exports = {
     async create(request, response) {
-        const { name, email, RG, CPF, sales_goal, sales_amount, city, uf, district, street, number } = request.body
+        const { name, email, RG, CPF, sales_goal, city, uf, district, street, number } = request.body
         const admin_id = request.headers.authorization
         
         const password = crypto.randomBytes(5).toString('HEX')
@@ -15,7 +15,7 @@ module.exports = {
             RG,
             CPF,
             sales_goal,
-            sales_amount,
+            sales_amount: 0,
             city,
             uf,
             district,
@@ -25,6 +25,37 @@ module.exports = {
         });
 
         return response.json({ id })
+    },
+
+    async update(request, response) {
+        const { name, email, RG, CPF, sales_goal, city, uf, district, street, number } = request.body
+        const admin_id = request.headers.authorization
+        const { id } = request.params
+
+        const salesman = await connection('salesman')
+        .where('id', id)
+        .select('admin_id')
+        .first()
+
+        if(salesman.admin_id != admin_id) {
+            return response.status(401).json({ error: "Operation not permitted." })
+        }
+
+        await connection('salesman').where('id', id).update({
+            name,
+            email,
+            RG,
+            CPF,
+            sales_goal,
+            city,
+            uf,
+            district,
+            street,
+            number,
+            admin_id,
+        })
+
+        return response.status(204).send()
     },
 
     async index(request, response) {
