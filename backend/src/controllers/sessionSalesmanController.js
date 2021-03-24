@@ -16,6 +16,6 @@ module.exports = {
         if(salesman.password != password) {
             return response.status(400).json({error: "Invalid password"})
         }
-        return response.json(salesman.name)
+        return response.json(salesman.id)
     }
 }
