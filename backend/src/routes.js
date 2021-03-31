@@ -7,6 +7,7 @@ const salesmanController = require('./controllers/salesmanController')
 const profileController = require('./controllers/profilerController')
 const clientController = require('./controllers/clientController')
 const internetPlanController = require('./controllers/internetPlanController')
+const sendEmailController = require('./controllers/sendEmailController')
 
 const sessionAdminController = require('./controllers/sessionAdminController')
 const sessionSalesmanController = require('./controllers/sessionSalesmanController')
@@ -35,6 +36,8 @@ routes.get('/internet-plan', internetPlanController.index)
 routes.post('/internet-plan', internetPlanController.create)
 routes.put('/internet-plan/:id', internetPlanController.update)
 routes.delete('/internet-plan/:id', internetPlanController.delete)
+
+routes.post('/send-email', sendEmailController.create)
 
 
 module.exports = routes

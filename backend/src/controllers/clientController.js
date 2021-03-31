@@ -25,7 +25,7 @@ module.exports = {
             internet_plan_id,
         })
 
-        return response.json({ id })
+        return response.json({ password })
     },
 
     async update(request, response) {

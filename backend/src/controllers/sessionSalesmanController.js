@@ -7,6 +7,7 @@ module.exports = {
 
         const salesman = await connection('salesman')
         .select('*')
+        .where('password', password)
         .where('email', email)
         .first()
 

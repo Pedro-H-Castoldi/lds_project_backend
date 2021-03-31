@@ -24,7 +24,7 @@ module.exports = {
             admin_id,
         });
 
-        return response.json({ id })
+        return response.json({ password })
     },
 
     async update(request, response) {
