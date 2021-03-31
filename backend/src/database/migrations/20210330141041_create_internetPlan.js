@@ -3,7 +3,7 @@ exports.up = function(knex) {
     return knex.schema.createTable('internet_plan', function (table) {
         table.increments('id').primary();
         table.float('price').notNullable();
-        table.integer('speed').notNullable();
+        table.string('speed').notNullable();
     })  
 };
 

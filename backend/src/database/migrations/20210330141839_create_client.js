@@ -12,6 +12,7 @@ exports.up = function(knex) {
         table.string('district').notNullable();
         table.string('street').notNullable();
         table.integer('number').notNullable();
+        table.integer('box_number').notNullable();
 
         table.integer('salesman_id').notNullable();
         table.integer('internet_plan_id').notNullable();

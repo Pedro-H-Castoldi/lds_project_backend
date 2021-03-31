@@ -3,7 +3,7 @@ const crypto = require('crypto')
 
 module.exports = {
     async create(request, response) {
-        const { name, email, RG, CPF, city, uf, district, street, number, internet_plan_id } = request.body
+        const { name, email, RG, CPF, city, uf, district, street, number, box_number, internet_plan_id } = request.body
 
         const salesman_id = request.headers.authorization
 
@@ -20,6 +20,7 @@ module.exports = {
             district,
             street,
             number,
+            box_number,
             salesman_id,
             internet_plan_id,
         })
@@ -28,7 +29,7 @@ module.exports = {
     },
 
     async update(request, response) {
-        const { name, email, RG, CPF, city, uf, district, street, number, internet_plan_id } = request.body
+        const { name, email, RG, CPF, city, uf, district, street, number, box_number, internet_plan_id } = request.body
         const salesman_id = request.headers.authorization
         const { id } = request.params
         
@@ -51,14 +52,17 @@ module.exports = {
             district,
             street,
             number,
+            box_number,
             salesman_id,
             internet_plan_id,
         })
+
+        return response.json({ id })
     },
     async index(request, response) {
         const { page = 1} = request.body
 
-        const [count] = await connection('client').count()
+        const [count] = await connection('client').count() 
 
         const list_client = await connection('client')
         .limit(5)
