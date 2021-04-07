@@ -5,17 +5,23 @@ const connection = require('./database/connection')
 const adminController = require('./controllers/adminController')
 const salesmanController = require('./controllers/salesmanController')
 const profileController = require('./controllers/profilerController')
+
 const clientController = require('./controllers/clientController')
+const especificClientController = require('./controllers/especificClientController')
+
+const especificInternetPlanController = require('./controllers/especificInternetPlanController')
 const internetPlanController = require('./controllers/internetPlanController')
 const sendEmailController = require('./controllers/sendEmailController')
 
 const sessionAdminController = require('./controllers/sessionAdminController')
 const sessionSalesmanController = require('./controllers/sessionSalesmanController')
+const sessionClientController = require('./controllers/sessionClientController')
 
 const routes = express.Router()
 
 routes.post('/sessionAdmin', sessionAdminController.create)
 routes.post('/sessionSalesman', sessionSalesmanController.create)
+routes.post('/sessionClient', sessionClientController.create)
 
 routes.get('/admin', adminController.index)
 routes.post('/admin', adminController.create)
@@ -32,10 +38,14 @@ routes.post('/client', clientController.create)
 routes.put('/client/:id', clientController.update)
 routes.delete('/client/:id', clientController.delete)
 
+routes.get('/especific-client', especificClientController.show)
+
 routes.get('/internet-plan', internetPlanController.index)
 routes.post('/internet-plan', internetPlanController.create)
 routes.put('/internet-plan/:id', internetPlanController.update)
 routes.delete('/internet-plan/:id', internetPlanController.delete)
+
+routes.get('/especific-plan', especificInternetPlanController.show)
 
 routes.post('/send-email', sendEmailController.create)
 
