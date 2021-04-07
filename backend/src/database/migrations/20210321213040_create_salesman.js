@@ -16,7 +16,7 @@ exports.up = function(knex) {
   
       table.integer('admin_id').notNullable();
   
-      table.foreign('admin_id').references('id').inTable('admin');
+      table.foreign('admin_id').references('id').inTable('admin').notNullable();;
     })
   };
   
