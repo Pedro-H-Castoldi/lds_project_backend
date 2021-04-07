@@ -1,30 +1,34 @@
-const sgMail = require('@sendgrid/mail')
-
-const API_KEY = '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'
+const nodemailer = require('nodemailer')
+    const user ="classroomfk49@gmail.com"
+    const pass = "googlecr666"
 
 module.exports = {
     async create(request, response) {
         const {password, email} = request.body
 
-        sgMail.setApiKey(API_KEY)
-
-        const message = {
-            to: email,
-            from: 'pedrohenriquecastoldi.b@hotmail.com',
-            subject: 'Senha de acesso',
-            text: `Aqui está sua senha para acessar o sistema do Eclipse NET: ${password}`,
-            html: `<p>Aqui está sua senha para acessar o sistema do Eclipse NET: ${password}</p>`
-        }
-
+        const transporte = nodemailer.createTransport({
+            host:"smtp.gmail.com",
+            port: 587,
+            auth: {user, pass},
+            tls: {
+                rejectUnauthorized: false
+            }
+        })
 
         try {
-            sgMail.send(message)
-            return response.json({ success: true})
 
-        } catch (error) {
-            return response.json(message.error)
+            transporte.sendMail({
+                from: user,
+                to: email,
+                subject: "Senha de Acesso",
+                text: `Aqui está sua senha para acessar o sistema do Eclipse Net: ${password}`
+            })
+
+            return response.json({success: true})
+
+        }catch(err){
+            return response.json(err)
         }
-
         
 
     }
