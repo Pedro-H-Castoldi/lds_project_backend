@@ -1,5 +1,8 @@
 const express = require('express')
+const multer = require('multer')
+const uploadConfig = require('./config/upload')
 
+const upload = multer(uploadConfig)
 const connection = require('./database/connection')
 
 const adminController = require('./controllers/adminController')
@@ -34,7 +37,7 @@ routes.put('/salesman/:id', salesmanController.update)
 routes.delete('/salesman/:id', salesmanController.delete)
 
 routes.get('/client', clientController.index)
-routes.post('/client', clientController.create)
+routes.post('/client', upload.array('images'), clientController.create)
 routes.put('/client/:id', clientController.update)
 routes.delete('/client/:id', clientController.delete)
 

@@ -13,12 +13,13 @@ exports.up = function(knex) {
         table.string('street').notNullable();
         table.integer('number').notNullable();
         table.integer('box_number').notNullable();
+        table.string('images').notNullable(); 
 
         table.integer('salesman_id').notNullable();
         table.integer('internet_plan_id').notNullable();
   
-      table.foreign('salesman_id').references('id').inTable('salesman').notNullable();
-      table.foreign('internet_plan_id').references('id').inTable('internet_plan').notNullable();
+      table.foreign('salesman_id').references('id').inTable('salesman');
+      table.foreign('internet_plan_id').references('id').inTable('internet_plan');
     })
   
 };

@@ -3,13 +3,18 @@ const crypto = require('crypto')
 
 module.exports = {
     async create(request, response) {
+        const requestImages = request.files
+        const images = requestImages.map(image => {
+            return { path: image.filename } 
+        })
+
         const { name, email, RG, CPF, city, uf, district, street, number, box_number, internet_plan_id } = request.body
 
         const salesman_id = request.headers.authorization
-
         const password = crypto.randomBytes(5).toString('HEX')
+        const trx = await connection.transaction() 
 
-        const [id] = await connection('client').insert({
+        const id = await trx('client').insert({ 
             name,
             email,
             password,
@@ -23,9 +28,19 @@ module.exports = {
             box_number,
             salesman_id,
             internet_plan_id,
+            images: 'sdd'
         })
 
-        return response.json({ password })
+        for (var i = 0; i < images.length; i++) {
+            await trx('attachments').insert({
+                client_id: id[0],
+                url: images[i].path,
+            })
+        }
+
+        await trx.commit()
+
+        return response.json({ password })  
     },
 
     async update(request, response) {
@@ -55,6 +70,7 @@ module.exports = {
             box_number,
             salesman_id,
             internet_plan_id,
+            
         })
 
         return response.json({ id })
@@ -70,7 +86,8 @@ module.exports = {
         .offset((page - 1) * 5)
         .select('*')
 
-        response.header('X-Total-Count', count['count(*)'])
+        response.header('X-Total-Count', count['count(*)']) 
+        console.log(list_client[0].images.path)
 
         return response.json(list_client)
     },
