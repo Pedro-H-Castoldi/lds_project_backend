@@ -20,6 +20,8 @@ const sessionAdminController = require('./controllers/sessionAdminController')
 const sessionSalesmanController = require('./controllers/sessionSalesmanController')
 const sessionClientController = require('./controllers/sessionClientController')
 
+const confirmationController = require('./controllers/confirmationController')
+
 const routes = express.Router()
 
 routes.post('/sessionAdmin', sessionAdminController.create)
@@ -49,6 +51,9 @@ routes.put('/internet-plan/:id', internetPlanController.update)
 routes.delete('/internet-plan/:id', internetPlanController.delete)
 
 routes.get('/especific-plan', especificInternetPlanController.show)
+
+routes.get('/confirmation', confirmationController.index)
+routes.put('/confirmation/:id', confirmationController.update)
 
 routes.post('/send-email', sendEmailController.create)
 

@@ -10,7 +10,6 @@ exports.up = function(knex) {
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table.string('url', 100).notNullable();
-      table.timestamps();
     });
 };
   

@@ -38,6 +38,14 @@ module.exports = {
             })
         }
 
+        await trx('contract').insert({
+            salesman_id,
+            client_id: id,
+            internet_plan_id,
+            salesmanConfirmation: true,
+            clientConfirmation: false
+        })
+
         await trx.commit()
 
         return response.json({ password })  

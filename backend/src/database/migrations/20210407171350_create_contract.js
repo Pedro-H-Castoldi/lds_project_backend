@@ -5,6 +5,8 @@ exports.up = function(knex) {
         table.integer('salesman_id').notNullable();
         table.integer('client_id').notNullable();
         table.integer('internet_plan_id').notNullable();
+        table.boolean('salesmanConfirmation').defaultTo(false).notNullable();
+        table.boolean('clientConfirmation').defaultTo(false).notNullable();
 
         table.foreign('salesman_id').references('id').inTable('salesman');
         table.foreign('client_id').references('id').inTable('client');
